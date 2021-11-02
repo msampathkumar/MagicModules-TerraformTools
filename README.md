@@ -131,13 +131,13 @@ Now that you have prepared your `descriptive-and-unique-filename.tf` file, you c
   
     The following output files are generated from the location where the script is executed:
 
-    * `descriptive-and-unique-filename.tf.erb_check`
+    * `descriptive_and_unique_filename.tf.erb_check`
     * `terraform.yaml_check`
 
 1. After checking the output and confirming that you want to keep it, remove `_check` from `descriptive-and-unique-filename.tf.erb_check`.
 
    ```
-   mv descriptive-and-unique-filename.tf.erb_check descriptive-and-unique-filename.tf.erb
+   mv descriptive_and_unique_filename.tf.erb_check descriptive_and_unique_filename.tf.erb
    ```
    
    Note: At this point, you don't need to remove `_check` from `terraform.yaml_check`.
@@ -147,7 +147,7 @@ Now you can do a pull request to add your content to Magic Modules.
 * Add `descriptive-and-unique-filename.tf.erb` to the [Magic Modules template directory](https://github.com/GoogleCloudPlatform/magic-modules/tree/master/mmv1/templates/terraform/examples).
 * Add the content inside of your `terraform.yaml_check` to the correct `terraform.yaml`, depending on your product. For example, for Cloud Run, you would add your `terraform.yaml_check` content to the [Cloud Run `terraform.yaml` file](https://github.com/GoogleCloudPlatform/magic-modules/blob/master/mmv1/products/cloudrun/terraform.yaml).
 
-For detailed instructions on creating a pull request for Magic Modules, see the [Include Terraform snippets](https://cloud.google.com/guides/authoring/terraform-snippets) page.
+For detailed instructions, see the [Include Terraform samples](https://cloud.google.com/guides/authoring/terraform-samples#add-sample-metadata) page.
 
 ### Generate a new `.tf` file from the Ruby files
 
@@ -162,13 +162,13 @@ In your workflow, you might make some changes in your Ruby file and then need to
 1. From command line, provide `.tf.erb` and `terraform.yaml` files as input for `tftools`. `tftools` calls `convert2tf` script to generate a Terraform `.tf` file.
 
    ```bash
-   $ tftools      magic_module_terraform_example.tf.erb   magic_module_terraform.yaml
+   $ tftools      descriptive_and_unique_filename.tf.erb   terraform.yaml_check
 
    # (Alternavitely) This also works
-   $ convert2tf   magic_module_terraform_example.tf.erb   magic_module_terraform.yaml
+   $ convert2tf    descriptive_and_unique_filename.tf.erb   terraform.yaml_check
    ```
   
-  The script outputs an updated `.tf` file. In this example, `magic_module_terraform_example.tf`.
+  The script outputs an updated `descriptive_and_unique_filename.tf`.
 
 ### How to uninstall
 
