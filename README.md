@@ -11,7 +11,7 @@ In [Magic Modules](https://github.com/GoogleCloudPlatform/magic-modules), every 
 1. `filename.tf.erb`: A Ruby-based template file of `filename.tf`.
 2. `terraform.yaml`: A YAML configuration file that specifies metadata for the template files.
 
-The purpose of `tftools` is to automatically translate back and forth between the Terraform example (`filename.tf`) to the Magic Modules Ruby files (`filename.tf.erb` file and `terraform.yaml`). Without `tftools`, the translation must be done manually.
+The purpose of `tftools` is to automatically translate back and forth between the Terraform example (`filename.tf`) to the Magic Modules source content (`filename.tf.erb` file and `terraform.yaml`). Without `tftools`, the translation must be done manually.
 
 
 To summarize:
