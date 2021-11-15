@@ -93,7 +93,7 @@ The installation includes the following command-line tools: `convert2tf`,  `conv
 ### Prepare your `filename.tf` file for conversion
 
 1. Get or create a Terraform file (`filename.tf`).
-1. Use a descriptive filename for your `filename.tf`. Instead of `main.tf` (for example), use the pattern `my-product-with-x-feature.tf`. For example:   `int_https_lb_https_with_redirect.tf` for internal HTTPS load balancer with redirect. The filename must be unique in the [Magic Modules template directory](https://github.com/GoogleCloudPlatform/magic-modules/tree/master/mmv1/templates/terraform/examples).
+1. Use a descriptive filename for your `filename.tf`. Instead of `main.tf` (for example), use the pattern `my-product-with-x-feature.tf`. For example:   `int-https-lb-https-with-redirect.tf` for internal HTTPS load balancer with redirect. The filename must be unique in the [Magic Modules template directory](https://github.com/GoogleCloudPlatform/magic-modules/tree/master/mmv1/templates/terraform/examples).
 
    ```
    mv main.tf descriptive-and-unique-filename.tf
