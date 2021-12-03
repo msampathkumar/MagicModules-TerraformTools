@@ -40,13 +40,13 @@ The installation includes the following command-line tools: `convert2tf`,  `conv
 1. Clone this repo. Or, optionally, you can download the `.zip` file.
 
    ```bash
-   git clone https://github.com/msampathkumar/MagicModules-TerraformTools.git
+   git clone https://github.com/GoogleCloudPlatform/terraform-sample-tools.git
    ```
 
 1. Move to the `setup.py` script location path and install.
 
    ```bash
-   cd MagicModules-TerraformTools/
+   cd terraform-sample-tools/tools/Magic Modules - Terraform Automation Tools/
    python3 setup.py install
    ```
 
@@ -85,24 +85,51 @@ The installation includes the following command-line tools: `convert2tf`,  `conv
   Alternatively, for Macs, you can use the following procedure to update your path:
   
   1. Open up Terminal.
-  1. Run the following command: `sudo nano /etc/paths`
-  1. Enter your password, when prompted.
-  1. Go to the bottom of the file and enter the correct path, as shown in the output of `python3 -c 'import sys; print(sys.prefix + "/bin")'. For example: `/Library/Frameworks/Python.framework/Versions/3.6/bin`
-  1. Press control-x to quit.
-  1. Enter `Y` to save the file.
+  2. Run the following command and copy the output to your clipboard.
+     ```
+     python3 -c 'import sys; print(sys.prefix + "/bin")'
+     ```
+     
+  3. Run the following command: `sudo nano /etc/paths`
+  4. Enter your password, when prompted.
+  5. Go to the bottom of the file and paste the output from the previous step.
+  6. Press control-x to quit.
+  7. Enter `Y` to save the file.
 
 ## How to use `tftools`
 
 ### Prepare your `filename.tf` file for conversion
 
 1. Get or create a Terraform file (`filename.tf`).
-1. Use a descriptive filename for your `filename.tf`. Instead of `main.tf` (for example), use the pattern `my-product-with-x-feature.tf`. For example:   `int_https_lb_https_with_redirect.tf` for internal HTTPS load balancer with redirect. The filename must be unique in the [Magic Modules template directory](https://github.com/GoogleCloudPlatform/magic-modules/tree/master/mmv1/templates/terraform/examples).
+2. In your `filename.tf` file, don't include the `random_pet` resource or any other resource for generating unique resource names. These resources are unnecessary because Magic Modules automatically generates unique names when testing resources that have the `vars` tag, as follows:
+
+  ```
+  resource "google_compute_backend_bucket" "static" {
+    name        = "<%= ctx[:vars]['backend_bucket_name'] %>"
+    bucket_name = google_storage_bucket.static.name
+    enable_cdn  = true
+  }
+  ```
+  
+  Thus, in your `filename.tf` file, you can include the something like the following:
+  
+  ```
+  resource "google_compute_backend_bucket" "static" {
+    name        = "backend-bucket-name"
+    bucket_name = google_storage_bucket.static.name
+    enable_cdn  = true
+  }
+  ```
+  
+  If your `filename.tf` file includes a reference to `random_pet` in the `name` argument, `tftools` operation fails with a parsing error.
+
+3. Use a descriptive filename for your `filename.tf`. Instead of `main.tf` (for example), use the pattern `my-product-with-x-feature.tf`. For example:   `int-https-lb-https-with-redirect.tf` for internal HTTPS load balancer with redirect. The filename must be unique in the [Magic Modules template directory](https://github.com/GoogleCloudPlatform/magic-modules/tree/master/mmv1/templates/terraform/examples).
 
    ```
    mv main.tf descriptive-and-unique-filename.tf
    ```
    
-1. In your file, within each resource, make sure that the `name` attribute is the first attribute. For example:
+4. In your file, within each resource, make sure that the `name` attribute is the first attribute. For example:
 
    ```
    resource "google_compute_health_check" "default" {
